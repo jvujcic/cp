@@ -108,3 +108,6 @@ hs_err_pid*
 
 ### Input files for testing ###
 input.txt
+
+### MacOS ###
+.DS_Store

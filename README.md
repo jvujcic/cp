@@ -1,2 +1,2 @@
-HackerRank Solutions
+Competitive Programming
 =====
