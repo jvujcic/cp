@@ -29,6 +29,7 @@
 *.exe
 *.out
 *.app
+*.bin
 
 
 ### Python ###
@@ -111,3 +112,7 @@ input.txt
 
 ### MacOS ###
 .DS_Store
+
+### VS Code ###
+.cph
+*.dSYM
