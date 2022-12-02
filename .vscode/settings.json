@@ -108,5 +108,6 @@
         "stacktrace": "cpp",
         "stop_token": "cpp",
         "syncstream": "cpp"
-    }
+    },
+    "editor.formatOnSave": true
 }
