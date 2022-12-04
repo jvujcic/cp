@@ -3,21 +3,18 @@
 using namespace std;
 
 int64_t getPriority(string rs) {
-    unordered_set<char> seen;
+    auto half_it = rs.begin() + (rs.end() - rs.begin()) / 2;
+    auto fst_half = set<char>{rs.begin(), half_it};
+    auto snd_half = set<char>{half_it, rs.end()};
+    std::vector<char> intersect;
 
-    for (uint64_t i = 0; i < rs.length() / 2; i++) {
-        seen.insert(rs[i]);
-    }
+    set_intersection(fst_half.begin(), fst_half.end(), snd_half.begin(), snd_half.end(), back_inserter(intersect));
+    char c = intersect.front();
 
-    for (uint64_t i = rs.length() / 2; i < rs.length(); i++) {
-        if (seen.contains(rs[i])) {
-            if (isupper(rs[i]))
-                return rs[i] - 'A' + 27;
-            else
-                return rs[i] - 'a' + 1;
-        }
-    }
-    exit(1);
+    if (isupper(c))
+        return c - 'A' + 27;
+    else
+        return c - 'a' + 1;
 }
 
 int main() {
