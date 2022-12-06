@@ -4,16 +4,6 @@ using namespace std;
 using ll = int64_t;
 using ull = uint64_t;
 
-tuple<string, ll> get_num_of_stacks(stringstream& input) {
-    string line;
-    while (getline(input, line)) {
-        if (line.substr(0, 2) == " 1") {
-            return {line, stoll(line.substr(line.length() - 2, 1))};
-        }
-    }
-    exit(1);
-}
-
 void move_crates(vector<deque<char>>& stacks, ll n, ll from, ll to) {
     deque<char> temp;
 
