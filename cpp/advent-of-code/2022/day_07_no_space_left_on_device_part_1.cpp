@@ -61,43 +61,6 @@ void calculate_size(dir* d) {
     }
 }
 
-bool ls_match(string input) {
-    regex rgx = regex("^\\$ ls");
-    return regex_match(input, rgx);
-}
-
-bool cd_match(string input, string& dir) {
-    regex rgx = regex("^\\$ cd\\s(.*)$");
-    smatch sm;
-    if (regex_match(input, sm, rgx)) {
-        dir = sm[1];
-        return true;
-    }
-    return false;
-}
-
-bool file_match(string input, string& filename, ll& filesize) {
-    regex rgx = regex("^(\\d*)\\s(.*)$");
-    smatch sm;
-    if (regex_match(input, sm, rgx)) {
-        filename = sm[2];
-        filesize = stoll(sm[1]);
-        return true;
-    };
-
-    return false;
-}
-
-bool dir_match(string input, string& dir) {
-    regex rgx = regex("^dir\\s(.*)$");
-    smatch sm;
-    if (regex_match(input, sm, rgx)) {
-        dir = sm[1];
-        return true;
-    }
-    return false;
-}
-
 ll sum_sizes_less_than(ll size, dir* d) {
     ll sum = 0;
 
@@ -121,22 +84,19 @@ int main() {
         exit(1);
 
     while (getline(cin, input)) {
-        string dirname, size, filename;
+        char dirname[100], filename[100];
         ll filesize;
-        if (ls_match(input)) {
-        } else if (cd_match(input, dirname)) {
-            if (dirname == "/")
-                current_dir = root;
-            else if (dirname == "..")
-                current_dir = current_dir->parent;
-            else {
-                dir* d = new dir{.name = dirname};
-                current_dir = add_dir(current_dir, d);
-            }
-        } else if (file_match(input, filename, filesize)) {
+        if (input == "$ ls") {
+        } else if (input == "$ cd /") {
+            current_dir = root;
+        } else if (input == "$ cd ..") {
+            current_dir = current_dir->parent;
+        } else if (sscanf(input.c_str(), "$ cd %s", dirname)) {
+            dir* d = new dir{.name = dirname};
+            current_dir = add_dir(current_dir, d);
+        } else if (sscanf(input.c_str(), "%lld %s", &filesize, filename)) {
             file f = file{.name = filename, .size = filesize};
             add_file(current_dir, f);
-        } else if (dir_match(input, dirname)) {
         }
     }
 
