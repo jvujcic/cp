@@ -23,7 +23,6 @@ int main() {
         }
     }
 
-    // vector<vector<bool>> visible(N, vector(M, false));
     vector<vector<ll>> score(N, vector(M, 1LL));
 
     // left -> right
